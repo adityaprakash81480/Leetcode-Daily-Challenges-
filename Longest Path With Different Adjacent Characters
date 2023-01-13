@@ -1,0 +1,30 @@
+class Solution {
+public:
+ //int dist[100005];
+//int ans=1;
+void dfs(vector<vector<int>>&adj,vector<int>&dist,string &s,int src,int &ans)
+{
+    dist[src]=1;
+    for(int &node:adj[src])
+    {
+        dfs(adj,dist,s,node,ans);
+        if(s[src]!=s[node])
+        {
+        ans=max(ans,dist[src]+dist[node]);
+        dist[src]=max(dist[src],dist[node]+1);
+        }
+    }
+}
+    int longestPath(vector<int>& parent, string s) {
+        int n=parent.size();
+        vector<vector<int>>adj(n);
+        vector<int>dist(n);
+        for(int i=1;i<n;i++)
+        {
+            adj[parent[i]].push_back(i);
+        }
+        int ans=1;
+            dfs(adj,dist,s,0,ans);
+        return ans;
+    }
+};
